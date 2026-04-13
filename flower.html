@@ -1,0 +1,992 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Floral Encyclopedia & Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #F5F1E8;
+            color: #2D2D2D;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.875rem;
+            line-height: 1.4;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            line-height: 1.4;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 5rem 2rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.05), transparent, rgba(201, 169, 160, 0.05));
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #2D5016;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .hero h1 {
+            margin-bottom: 1rem;
+            color: #2D2D2D;
+        }
+
+        .hero h1 .highlight {
+            color: #2D5016;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 400px;
+            margin-bottom: 2rem;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid #E8DFD5;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-family: 'Lato', sans-serif;
+            background-color: white;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: #2D5016;
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 1.25rem;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            border-top: 1px solid #E8DFD5;
+            border-bottom: 1px solid #E8DFD5;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 30;
+        }
+
+        .filter-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #999;
+            white-space: nowrap;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #E8DFD5;
+            background-color: white;
+            color: #2D2D2D;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-family: 'Lato', sans-serif;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: #9CAF88;
+            color: white;
+            border-color: #9CAF88;
+        }
+
+        .filter-btn.active {
+            background-color: #2D5016;
+            color: white;
+            border-color: #2D5016;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 4rem 2rem;
+        }
+
+        .gallery-header {
+            margin-bottom: 3rem;
+        }
+
+        .gallery-header h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-header p {
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        /* Flower Card */
+        .flower-card {
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid #E8DFD5;
+        }
+
+        .flower-card:hover {
+            box-shadow: 0 12px 24px rgba(45, 80, 22, 0.15);
+            border-color: #C9A9A0;
+            transform: translateY(-4px);
+        }
+
+        .flower-image {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background-color: #E8DFD5;
+        }
+
+        .flower-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .flower-card:hover .flower-image img {
+            transform: scale(1.05);
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background-color: rgba(201, 169, 160, 0.9);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .flower-content {
+            padding: 1.5rem;
+        }
+
+        .flower-title {
+            margin-bottom: 0.25rem;
+        }
+
+        .flower-title h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .flower-card:hover .flower-title h3 {
+            color: #2D5016;
+        }
+
+        .flower-scientific {
+            font-size: 0.875rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        .flower-description {
+            font-size: 0.875rem;
+            color: #666;
+            margin: 0.75rem 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .flower-attributes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 0.75rem 0;
+        }
+
+        .attribute-tag {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            background-color: #F0F0F0;
+            color: #666;
+        }
+
+        .attribute-tag.fragrant {
+            background-color: rgba(156, 175, 136, 0.2);
+            color: #9CAF88;
+        }
+
+        .attribute-tag.color {
+            background-color: rgba(201, 169, 160, 0.2);
+            color: #C9A9A0;
+        }
+
+        .attribute-tag.season {
+            background-color: rgba(45, 80, 22, 0.2);
+            color: #2D5016;
+        }
+
+        .flower-symbolism {
+            padding-top: 0.75rem;
+            border-top: 1px solid #E8DFD5;
+            font-size: 0.75rem;
+            color: #999;
+        }
+
+        .flower-symbolism strong {
+            color: #2D2D2D;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .no-results h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .no-results p {
+            color: #999;
+            margin-bottom: 1.5rem;
+        }
+
+        .clear-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            border: 1px solid #E8DFD5;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-family: 'Lato', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            background-color: #2D5016;
+            color: white;
+            border-color: #2D5016;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .modal-header {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        .modal-title {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .modal-title h2 {
+            margin-bottom: 0.25rem;
+            color: white;
+        }
+
+        .modal-title p {
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-section h3 {
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            color: #2D2D2D;
+        }
+
+        .modal-section p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .modal-divider {
+            border: none;
+            border-top: 1px solid #E8DFD5;
+            margin: 1.5rem 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-box {
+            background-color: rgba(156, 175, 136, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .info-box label {
+            font-size: 0.75rem;
+            color: #999;
+            font-weight: 600;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .info-box p {
+            font-weight: 600;
+            color: #2D2D2D;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.5rem 0.75rem;
+            background-color: #F5F1E8;
+            border: 1px solid #E8DFD5;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #2D2D2D;
+        }
+
+        .characteristics-list {
+            list-style: none;
+        }
+
+        .characteristics-list li {
+            padding: 0.5rem 0;
+            color: #666;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .characteristics-list li::before {
+            content: '•';
+            color: #2D5016;
+            font-weight: bold;
+            margin-top: 0.25rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: white;
+            border: none;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+
+        .close-btn:hover {
+            background-color: #F5F1E8;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #E8DFD5;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.125rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-section p {
+            font-size: 0.875rem;
+            color: #999;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #E8DFD5;
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>🌸</span>
+                    <span>Botanical Encyclopedia</span>
+                </div>
+                <h1>Discover the World of <span class="highlight">Flowers</span></h1>
+                <p>Explore a curated collection of the world's most beautiful and significant flowers. Learn about their origins, symbolism, and botanical characteristics.</p>
+                
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Search flowers by name, meaning, or origin...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="filter-content">
+            <span class="filter-label">Filter:</span>
+            <div class="filter-buttons" id="filterButtons"></div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="container">
+            <div class="gallery-header">
+                <h2 id="resultsCount">6 Flowers Found</h2>
+                <p id="resultsInfo"></p>
+            </div>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>🌸 Floral Encyclopedia</h3>
+                    <p>A comprehensive guide to the world's most beautiful flowers, their origins, and meanings.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Information</h3>
+                    <p>Created as a BCA student project to showcase botanical knowledge and web design skills.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Floral Encyclopedia & Gallery. All rights reserved. | Designed with ♥ for nature lovers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="flowerModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <div class="modal-header" id="modalHeader"></div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Flower Data
+        const flowers = [
+            {
+                id: "rose",
+                name: "Rose",
+                scientificName: "Rosa spp.",
+                category: "Classic",
+                description: "The queen of flowers, roses are celebrated worldwide for their exquisite beauty and fragrance. With hundreds of varieties, they display remarkable diversity in color, form, and size.",
+                origin: "Asia, particularly China",
+                bloomSeason: "Spring to Fall",
+                color: ["Red", "Pink", "White", "Yellow", "Coral"],
+                fragrance: true,
+                symbolism: "Love, passion, beauty, and courage",
+                characteristics: ["Thorny stems", "Layered petals", "Fragrant varieties", "Long vase life", "Diverse color range"],
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663199106721/fsm38bhRp9kzQXqxrYCj88/hero-rose-garden-joZPDZDrfkWLpHo9aSorpp.webp",
+                nativeRegions: ["China", "Middle East", "Europe"]
+            },
+            {
+                id: "tulip",
+                name: "Tulip",
+                scientificName: "Tulipa spp.",
+                category: "Spring Bulbs",
+                description: "Tulips are spring-flowering perennials known for their distinctive cup-shaped flowers. Originally from Central Asia, they became iconic in Holland.",
+                origin: "Central Asia, particularly Kazakhstan",
+                bloomSeason: "Spring",
+                color: ["Red", "Pink", "Purple", "Yellow", "White"],
+                fragrance: false,
+                symbolism: "Perfect love, elegance, and grace",
+                characteristics: ["Cup-shaped flowers", "Smooth stems", "Bulbous roots", "Vibrant colors", "Spring bloomers"],
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663199106721/fsm38bhRp9kzQXqxrYCj88/hero-wildflower-meadow-VVXCfws4CjcBUD556A4kTv.webp",
+                nativeRegions: ["Kazakhstan", "Kyrgyzstan", "Turkey"]
+            },
+            {
+                id: "lily",
+                name: "Lily",
+                scientificName: "Lilium spp.",
+                category: "Bulbs",
+                description: "Lilies are majestic flowers with large, showy blooms and prominent stamens. They are among the most popular cut flowers and garden plants.",
+                origin: "Northern Hemisphere, primarily Asia",
+                bloomSeason: "Summer",
+                color: ["White", "Pink", "Red", "Orange", "Yellow"],
+                fragrance: true,
+                symbolism: "Purity, rebirth, fertility, and refined beauty",
+                characteristics: ["Large trumpet flowers", "Prominent stamens", "Strong fragrance", "Tall stems", "Multiple blooms per stem"],
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663199106721/fsm38bhRp9kzQXqxrYCj88/hero-tropical-orchids-5JPkEWTE4jDw779LhrqAUt.webp",
+                nativeRegions: ["China", "Japan", "India", "North America"]
+            },
+            {
+                id: "sunflower",
+                name: "Sunflower",
+                scientificName: "Helianthus annuus",
+                category: "Annuals",
+                description: "Sunflowers are iconic tall flowers with large golden blooms that track the sun's movement across the sky. These cheerful giants can reach heights of 12 feet.",
+                origin: "North America, particularly Mexico",
+                bloomSeason: "Summer to Fall",
+                color: ["Yellow", "Orange", "Red"],
+                fragrance: false,
+                symbolism: "Loyalty, longevity, happiness, and vitality",
+                characteristics: ["Large flower heads", "Tall sturdy stems", "Heliotropic movement", "Edible seeds", "Bright yellow petals"],
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663199106721/fsm38bhRp9kzQXqxrYCj88/hero-botanical-pattern-Wq244RThzrNwsuj6ATF8b4.webp",
+                nativeRegions: ["Mexico", "United States", "Central America"]
+            },
+            {
+                id: "lotus",
+                name: "Lotus",
+                scientificName: "Nelumbo nucifera",
+                category: "Aquatic",
+                description: "The lotus is a sacred aquatic flower revered in Asian cultures for thousands of years. These magnificent flowers emerge from muddy water on long stems.",
+                origin: "South and East Asia",
+                bloomSeason: "Summer",
+                color: ["Pink", "White", "Red"],
+                fragrance: true,
+                symbolism: "Purity, enlightenment, rebirth, and spiritual awakening",
+                characteristics: ["Aquatic growth", "Emergent flowers", "Large leaves", "Nocturnally closing petals", "Sacred significance"],
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663199106721/fsm38bhRp9kzQXqxrYCj88/hero-tropical-orchids-5JPkEWTE4jDw779LhrqAUt.webp",
+                nativeRegions: ["India", "China", "Southeast Asia"]
+            },
+            {
+                id: "daisy",
+                name: "Daisy",
+                scientificName: "Bellis perennis",
+                category: "Wildflowers",
+                description: "Daisies are cheerful, simple flowers with white petals and yellow centers. These humble blooms are found in meadows and grasslands across the Northern Hemisphere.",
+                origin: "Europe and temperate Asia",
+                bloomSeason: "Spring to Summer",
+                color: ["White", "Pink", "Red"],
+                fragrance: false,
+                symbolism: "Innocence, purity, simplicity, and new beginnings",
+                characteristics: ["Simple flower form", "Yellow center disk", "White ray petals", "Low growing", "Common in meadows"],
+                image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663199106721/fsm38bhRp9kzQXqxrYCj88/hero-wildflower-meadow-VVXCfws4CjcBUD556A4kTv.webp",
+                nativeRegions: ["Europe", "Western Asia", "North Africa"]
+            }
+        ];
+
+        const categories = ["All", "Classic", "Spring Bulbs", "Bulbs", "Annuals", "Wildflowers", "Aquatic"];
+
+        let selectedCategory = "All";
+        let searchQuery = "";
+
+        // Initialize
+        function init() {
+            renderFilters();
+            renderGallery();
+            setupEventListeners();
+        }
+
+        // Render Filter Buttons
+        function renderFilters() {
+            const filterButtons = document.getElementById('filterButtons');
+            filterButtons.innerHTML = categories.map(cat => 
+                `<button class="filter-btn ${cat === 'All' ? 'active' : ''}" onclick="filterByCategory('${cat}')">${cat}</button>`
+            ).join('');
+        }
+
+        // Filter by Category
+        function filterByCategory(category) {
+            selectedCategory = category;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderGallery();
+        }
+
+        // Setup Event Listeners
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase();
+                renderGallery();
+            });
+        }
+
+        // Filter Flowers
+        function getFilteredFlowers() {
+            return flowers.filter(flower => {
+                const matchesSearch = 
+                    flower.name.toLowerCase().includes(searchQuery) ||
+                    flower.scientificName.toLowerCase().includes(searchQuery) ||
+                    flower.symbolism.toLowerCase().includes(searchQuery);
+
+                const matchesCategory = 
+                    selectedCategory === 'All' || flower.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+        }
+
+        // Render Gallery
+        function renderGallery() {
+            const filtered = getFilteredFlowers();
+            const galleryGrid = document.getElementById('galleryGrid');
+            const resultsCount = document.getElementById('resultsCount');
+            const resultsInfo = document.getElementById('resultsInfo');
+
+            resultsCount.textContent = `${filtered.length} Flowers Found`;
+            
+            if (selectedCategory !== 'All') {
+                resultsInfo.textContent = `Category: ${selectedCategory}`;
+            } else if (searchQuery) {
+                resultsInfo.textContent = `Searching for: "${searchQuery}"`;
+            } else {
+                resultsInfo.textContent = '';
+            }
+
+            if (filtered.length === 0) {
+                galleryGrid.innerHTML = `
+                    <div class="no-results" style="grid-column: 1 / -1;">
+                        <h3>No flowers found</h3>
+                        <p>Try adjusting your search or filter criteria</p>
+                        <button class="clear-btn" onclick="clearFilters()">Clear Filters</button>
+                    </div>
+                `;
+                return;
+            }
+
+            galleryGrid.innerHTML = filtered.map(flower => `
+                <div class="flower-card" onclick="openModal('${flower.id}')">
+                    <div class="flower-image">
+                        <img src="${flower.image}" alt="${flower.name}">
+                        <span class="category-badge">${flower.category}</span>
+                    </div>
+                    <div class="flower-content">
+                        <div class="flower-title">
+                            <h3>${flower.name}</h3>
+                            <p class="flower-scientific">${flower.scientificName}</p>
+                        </div>
+                        <p class="flower-description">${flower.description}</p>
+                        <div class="flower-attributes">
+                            ${flower.fragrance ? '<span class="attribute-tag fragrant">💧 Fragrant</span>' : ''}
+                            <span class="attribute-tag color">🎨 ${flower.color.length} colors</span>
+                            <span class="attribute-tag season">🌸 ${flower.bloomSeason}</span>
+                        </div>
+                        <div class="flower-symbolism">
+                            <strong>Symbolism: </strong>${flower.symbolism}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Open Modal
+        function openModal(flowerId) {
+            const flower = flowers.find(f => f.id === flowerId);
+            const modal = document.getElementById('flowerModal');
+            const modalHeader = document.getElementById('modalHeader');
+            const modalBody = document.getElementById('modalBody');
+
+            modalHeader.innerHTML = `
+                <img src="${flower.image}" alt="${flower.name}">
+                <div class="modal-title">
+                    <h2>${flower.name}</h2>
+                    <p>${flower.scientificName}</p>
+                </div>
+            `;
+
+            modalBody.innerHTML = `
+                <div class="info-grid">
+                    <div class="info-box">
+                        <label>Category</label>
+                        <p>${flower.category}</p>
+                    </div>
+                    <div class="info-box">
+                        <label>Origin</label>
+                        <p>${flower.origin}</p>
+                    </div>
+                </div>
+
+                <div class="modal-section">
+                    <h3>Description</h3>
+                    <p>${flower.description}</p>
+                </div>
+
+                <hr class="modal-divider">
+
+                <div class="modal-section">
+                    <h3>Bloom Information</h3>
+                    <p><strong>Season:</strong> ${flower.bloomSeason}</p>
+                    <p><strong>Fragrance:</strong> ${flower.fragrance ? 'Yes, fragrant' : 'No fragrance'}</p>
+                </div>
+
+                <hr class="modal-divider">
+
+                <div class="modal-section">
+                    <h3>Available Colors</h3>
+                    <div class="tags">
+                        ${flower.color.map(c => `<span class="tag">${c}</span>`).join('')}
+                    </div>
+                </div>
+
+                <hr class="modal-divider">
+
+                <div class="modal-section">
+                    <h3>Symbolism & Meaning</h3>
+                    <p>${flower.symbolism}</p>
+                </div>
+
+                <hr class="modal-divider">
+
+                <div class="modal-section">
+                    <h3>Key Characteristics</h3>
+                    <ul class="characteristics-list">
+                        ${flower.characteristics.map(c => `<li>${c}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <hr class="modal-divider">
+
+                <div class="modal-section">
+                    <h3>Native Regions</h3>
+                    <div class="tags">
+                        ${flower.nativeRegions.map(r => `<span class="tag">${r}</span>`).join('')}
+                    </div>
+                </div>
+            `;
+
+            modal.classList.add('active');
+        }
+
+        // Close Modal
+        function closeModal() {
+            document.getElementById('flowerModal').classList.remove('active');
+        }
+
+        // Clear Filters
+        function clearFilters() {
+            selectedCategory = 'All';
+            searchQuery = '';
+            document.getElementById('searchInput').value = '';
+            renderFilters();
+            renderGallery();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('flowerModal').addEventListener('click', (e) => {
+            if (e.target.id === 'flowerModal') {
+                closeModal();
+            }
+        });
+
+        // Initialize on load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
+Visual Project on Flowers in Visual Studio for BCA - Manus
